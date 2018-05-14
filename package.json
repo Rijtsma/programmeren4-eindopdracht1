@@ -1,0 +1,24 @@
+{
+  "name": "programmeren4-eindopdracht1",
+  "version": "1.0.0",
+  "description": "studentenhuis server eindopdracht programmeren 4 kans 1",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rijtsma/programmeren4-eindopdracht1.git"
+  },
+  "keywords": [
+    "studentenhuis",
+    "server",
+    "javascript"
+  ],
+  "author": "Rick IJtsma, Steven Kant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rijtsma/programmeren4-eindopdracht1/issues"
+  },
+  "homepage": "https://github.com/Rijtsma/programmeren4-eindopdracht1#readme"
+}
