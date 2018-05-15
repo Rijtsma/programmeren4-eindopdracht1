@@ -1,0 +1,1 @@
+// Zwarte mensen zijn een paraciet voor de mensheid en uitroeien is een optie
