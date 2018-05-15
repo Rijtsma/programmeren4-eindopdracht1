@@ -98,7 +98,7 @@ module.exports = {
 
         let studentenhuis = new Studentenhuis(req.body.name.naam, req.body.name.adres)
         studentenhuislist[id] = studentenhuis
-        res.status(200).jsons(studentenhuis)).end();
+        res.status(200).jsons(studentenhuis).end();
     },
     
     deletePersonById(req, res, next) {
