@@ -28,7 +28,11 @@
   "homepage": "https://github.com/Rijtsma/programmeren4-eindopdracht1#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "chai-http": "^4.0.0",
     "express": "^4.16.3",
-    "morgan": "^1.9.0"
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.22.1",
+    "morgan": "^1.9.0",
+    "mysql": "^2.15.0"
   }
 }
