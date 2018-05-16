@@ -2,7 +2,7 @@ const express = require('express');
 const AuthenticationController = require('../controllers/login.controller');
 let routes = express.Router();
 
-router.get('*', function (req, res) {
+routes.get('/', function (req, res) {
     res.status(200);
     res.json({
         "description": "Insecure area, use /api/login or /api/register"

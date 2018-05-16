@@ -3,6 +3,8 @@ const ApiError = require('../domain/ApiError')
 const assert = require('assert')
 const database = require('../config/connectDB')
 const auth =  require('../logon/tokenLogin');
+const jwt = require("jwt-simple")
+const config = require('../config/tokenConfig');
 
 module.exports = {
 
@@ -47,6 +49,22 @@ module.exports = {
 }catch(err){
     throw(new ApiError(err.toString(),412))
 }
+},
+
+getAllStudentenhuizen(req, res, next) {
+
+    db.query('SELECT * FROM studentenhuis', function (error, rows, fields) {
+        if (error) {
+            next(error)
+        } else {
+            res.status(200).json({
+                status: {
+                    query: 'ok'
+                },
+                result: rows
+            }).end()
+        }
+    })
 },
 
     /**
