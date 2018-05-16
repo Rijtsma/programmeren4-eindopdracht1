@@ -53,7 +53,7 @@ module.exports = {
 
 getAllStudentenhuizen(req, res, next) {
 
-    db.query('SELECT * FROM studentenhuis', function (error, rows, fields) {
+    database.query('SELECT * FROM studentenhuis', function (error, rows, fields) {
         if (error) {
             next(error)
         } else {
