@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 let express = require('express')
 let routes = express.Router()
 let studentenhuiscontroller = require('../controllers/studentenhuis.controller')
@@ -16,4 +15,3 @@ routes.post('/studentenhuis', studentenhuiscontroller.createStudentenhuis)
 //routes.delete('/persons/:id', personcontroller.deletePersonById)
 
 module.exports = routes
->>>>>>> 7c1bfbb87081bbd53f72fc3b39f9a60124ee997d
