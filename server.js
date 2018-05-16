@@ -23,10 +23,11 @@ app.use('*', function(req, res, next){
 	next()
 })
 
+app.use('/api', public_routes)
+
 app.all('*', loginController.validateToken) //login om verder te gaan
 
 // Regular endpoints
-app.use('/api', public_routes)
 app.use('/api', maaltijd_routes)
 app.use('/api', studentenhuis_routes)
 
