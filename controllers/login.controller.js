@@ -1,6 +1,6 @@
 const auth = require('../logon/tokenLogin');
 const assert = require('assert');
-const database = require('../config/connectDB');
+const db = require('../config/connectDB');
 
 module.exports = {
     validateToken(request, response, next) {
@@ -26,15 +26,17 @@ module.exports = {
     login(request, response, next) {
         try {
             console.log('Login attempt');
-            const email = request.body.user || '';
+            const email = request.body.email || '';
             const password = request.body.password || '';
+
+            console.log(email + password)
 
             assert(email !== '', 'Username was not defined or passed as empty');
             assert(password !== '', 'Password was not defined or passed as empty');
             assert(typeof(email) === 'string', 'Username is not of type string');
             assert(typeof(password) === 'string', 'Password is not of type string');
 
-            db.query('SELECT * FROM account WHERE Email=? AND Password=?;', [email, password], (error, rows, fields) => {
+            db.query('SELECT * FROM user WHERE Email=? AND Password=?;', [email, password], (error, rows, fields) => {
                if(error) {
                    response.status(500).json({
                        status: 500,
@@ -42,7 +44,7 @@ module.exports = {
                    }).end();
                } else {
                    if(rows.length > 0) {
-                       const token = auth.encodeToken(username);
+                       const token = auth.encodeToken(email);
                        response.status(200).json({
                            token: token
                        }).end();

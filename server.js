@@ -3,9 +3,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const loginController = require('./controllers/login.controller')
-const loginRegister = require('./routes/public_routes');
-const studenthouse = require('./routes/studenthouse');
-const maaltijd = require('./routes/maaltijd');
+const public_routes = require('./routes/public_routes');
+const studentenhuis_routes = require('./routes/studentenhuis_routes');
+const maaltijd_routes = require('./routes/maaltijd_routes');
 
 let app = express()
 

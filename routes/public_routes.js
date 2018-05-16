@@ -3,8 +3,8 @@ const AuthenticationController = require('../controllers/login.controller');
 let routes = express.Router();
 
 
-routes.post('/login', AuthController.login);
-routes.post('/register', AuthController.register);
+routes.post('/login', AuthenticationController.login);
+routes.post('/register', AuthenticationController.register);
 
 // Export the routes
 module.exports = routes;
