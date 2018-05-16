@@ -37,21 +37,21 @@ module.exports = {
     },
 
     /**
-     * Get the current list of persons.
+     * Get the current list of studentenhuisen.
      * 
      * @param {*} req The incoming request. No properties required. 
      * @param {*} res Respond contains the list as an array.
      * @param {*} next Unused here (no errors expected.)
      */
     getAllStudentenhuizen(req, res, next) {
-        res.status(200).json(personlist).end();
+        res.status(200).json(studentenhuislist).end();
     },
 
     /**
-     * Get a person by given id. The id is the index in the personlist.
+     * Get a studentenhuis by given id. The id is the index in the studentenhuislist.
      * 
-     * @param {*} req req.params.id is the person's id in the personlist.
-     * @param {*} res The requested person object.
+     * @param {*} req req.params.id is the studentenhuis's id in the studentenhuislist.
+     * @param {*} res The requested studentenhuis object.
      * @param {*} next ApiError when id is invalid.
      */
     getStudentenhuisById(req, res, next) {
@@ -71,12 +71,12 @@ module.exports = {
     //
     
     /**
-     * Replace an existing person in the list. We need an id and a new person 
-     * object. The new person will be stored at index id.
+     * Replace an existing studentenhuis in the list. We need an id and a new studentenhuis 
+     * object. The new studentenhuis will be stored at index id.
      * 
-     * @param {*} req req.params.id is the person's id in the personlist. req.body contains the new person object.
-     * @param {*} res The updated person object.
-     * @param {*} next ApiError when id and/or person object are invalid.
+     * @param {*} req req.params.id is the studentenhuis's id in the studentenhuislist. req.body contains the new studentenhuis object.
+     * @param {*} res The updated studentenhuis object.
+     * @param {*} next ApiError when id and/or studentenhuis object are invalid.
      */
     updateStudentenhuisById(req, res, next) {
         const id = req.params.id
@@ -84,9 +84,9 @@ module.exports = {
         try {
             // We need a valid id 
             assert(!isNaN(id) && id >= 0 && id < Studentenhuis.length, 'parameter id is invalid: ' + id)
-            // And we need a valid person
+            // And we need a valid studentenhuis
             assert(typeof (studentenhuis) === 'object', 'name must be a valid object')
-            assert(person.hasOwnProperty('name'), 'A person must hava a name object')
+            assert(studentenhuis.hasOwnProperty('name'), 'A studentenhuis must hava a name object')
             assert(typeof (studentenhuis.name.naam) === 'string', 'naam must be a string')
             assert(typeof (studentenhuis.name.adres) === 'string', 'adres must be a string')
         }
@@ -101,7 +101,7 @@ module.exports = {
         res.status(200).jsons(studentenhuis).end();
     },
     
-    deletePersonById(req, res, next) {
+    deleteStudentenhuisById(req, res, next) {
         const id = req.params.id
         try {
             // We need a valid id 
@@ -113,7 +113,7 @@ module.exports = {
             return
         }
 
-        // delete die person
+        // delete die studentenhuis
         const removedStudentenhuis = studentenhuis.splice(id, 1)
         if(removedStudentenhuis.length === 1) {
             // gelukt; status = 200
