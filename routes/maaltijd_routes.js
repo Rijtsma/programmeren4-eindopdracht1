@@ -6,11 +6,10 @@ const database = require('../studentenhuis');
 const { validate } = require('../domain/Maaltijd');
 
 // hier schrijven we router endpoints
-routes.get('/maaltijd', maaltijdcontroller.getAllStudentenhuizen)
-routes.post('/maaltijd', maaltijdcontroller.createMaaltijd)
-
-//routes.get('/persons/:id', personcontroller.getPersonById)
-//routes.put('/persons/:id', personcontroller.updatePersonById)
-//routes.delete('/persons/:id', personcontroller.deletePersonById)
+routes.get('/studentenhuis/StudentenhuisID/maaltijd', maaltijdcontroller.getAllMaaltijden)
+routes.post('/studentenhuis/StudentenhuisID/maaltijd', maaltijdcontroller.createMaaltijd)
+routes.get('/studentenhuis/StudentenhuisID/maaltijd/:id', personcontroller.getMaaltijdById)
+routes.put('/studentenhuis/StudentenhuisID/maaltijd/:id', personcontroller.updateMaaltijdById)
+routes.delete('/studentenhuis/StudentenhuisID/maaltijd/:id', personcontroller.deleteMaaltijdById)
 
 module.exports = routes

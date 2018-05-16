@@ -1,8 +1,8 @@
 const Studentenhuis = require('../domain/Studentenhuis')
 const ApiError = require('../domain/ApiError')
 const assert = require('assert')
-
-let studentenhuislist = []
+const database = require('../config/connectDB')
+const auth =  require('../logon/tokenLogin');
 
 module.exports = {
 
