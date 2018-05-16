@@ -69,7 +69,7 @@ module.exports = {
             console.log('Registration attempt');
             const firstname =  request.body.firstname || '';
             const lastname =  request.body.lastname || '';
-            const email = request.body.user || '';
+            const email = request.body.email || '';
             const password = request.body.password || '';
 
             assert(email !== '', 'Username was not defined or passed as empty');
@@ -90,7 +90,7 @@ module.exports = {
                             description: "An account with that username already exists"
                         }).end();
                     } else {
-                        db.query('INSERT INTO user (voornaam, achternaam, email, password) VALUES (?,?,?,?);', [firstname, lastname, username, password], (error, rows, fields) => {
+                        db.query('INSERT INTO user (voornaam, achternaam, email, password) VALUES (?,?,?,?);', [firstname, lastname, email, password], (error, rows, fields) => {
                             response.status(200).json({
                                 status: 200,
                                 description: 'Account successfully created'
