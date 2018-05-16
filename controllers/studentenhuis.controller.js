@@ -15,48 +15,39 @@ module.exports = {
      */
     createStudentenhuis(req, res, next) {
         // console.log('studentenhuiscontroller.createStudentenhuis')
-        
-        try {
-            assert(typeof (req.body.name) === 'object', 'studentenhuis must be an object containing naam and adres.')
-            assert(typeof (req.body.name.naam) === 'string', 'naam must be a string.')
-            assert(typeof (req.body.name.adres) === 'string', 'adres must be a string.')
-        }
-        catch(ex) {
-            const error = new ApiError(ex.toString(), 422)
-            next(error)
-            return
-        }
+    try {   
+        const name = req.body.name
+        const adress = req.body.adress
+        const xToken = req.header('x-access-token') || ''
+        const decryptToken = jwt.decode(xToken, config.secretKey)
 
-        const naam = req.body.name.naam
-        const adres = req.body.name.adres
 
-        let studentenhuis = new Studentenhuis(naam, adres)
-        studentenhuislist.push(studentenhuis)
-
-        res.status(200).json(user).end();
-    },
-
-    /**
-     * Get the current list of studentenhuisen.
-     * 
-     * @param {*} req The incoming request. No properties required. 
-     * @param {*} res Respond contains the list as an array.
-     * @param {*} next Unused here (no errors expected.)
-     */
-    getAllStudentenhuizen(req, res, next) {
-        database.query('SELECT * FROM studentenhuis', function (error, rows, fields) {
+        database.query('SELECT ID FROM user WHERE email =' + decryptToken.sub.toString(), function (error, result, fields) {
             if (error) {
                 next(error)
             } else {
-                res.status(200).json({
-                    status: {
-                        query: 'ok'
-                    },
-                    result: rows
-                }).end()
-            }
-        })
-    },
+                db.query('INSERT INTO studentenhuis (Naam,Adres,ID) VALUES ("' + name + '","' + adress + '","' + result[0].id + '")', function(error, rows, fields){ 
+                if (error) {
+                    next(error)
+                } else {
+                    res.status(200).json({
+                        status: {
+                            ID: result[0].id,
+                            naam: name,
+                            adres: adress,
+                            contact: 'Zie e-mailadres',
+                            email: decryptToken.sub
+                        },
+                        result: rows
+                    }).end()
+                }
+            })
+        }
+    })
+}catch(err){
+    throw(new ApiError(err.toString(),412))
+}
+},
 
     /**
      * Get a studentenhuis by given id. The id is the index in the studentenhuislist.
@@ -94,7 +85,7 @@ module.exports = {
      * @param {*} next ApiError when id and/or studentenhuis object are invalid.
      */
     updateStudentenhuisById(req, res, next) {
-        database.query('SELECT * FROM studentenhuis', function (error, rows, fields) {
+        database.query('UPDATE studentenhuis SET Naam = ?, Adres = ? WHERE ID = ?', [naam, adres, id], function (error, rows, fields) {
             if (error) {
                 next(error)
             } else {
