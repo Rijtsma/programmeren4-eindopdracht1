@@ -24,11 +24,11 @@ module.exports = {
         const decryptToken = jwt.decode(xToken, config.secretKey)
 
 
-        database.query('SELECT ID FROM user WHERE email =' + decryptToken.sub.toString(), function (error, result, fields) {
+        database.query('SELECT ID FROM user WHERE Email =' + '"' + decryptToken.sub.toString() + '"', function (error, result, fields) {
             if (error) {
                 next(error)
             } else {
-                db.query('INSERT INTO studentenhuis (Naam,Adres,ID) VALUES ("' + name + '","' + adress + '","' + result[0].id + '")', function(error, rows, fields){ 
+                database.query('INSERT INTO studentenhuis (Naam,Adres,ID) VALUES ("' + name + '","' + adress + '","' + result[0].id + '")', function(error, rows, fields){ 
                 if (error) {
                     next(error)
                 } else {
