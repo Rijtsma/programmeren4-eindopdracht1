@@ -10,8 +10,8 @@ const { validate } = require('../domain/Studentenhuis');
 routes.get('/studentenhuis', studentenhuiscontroller.getAllStudentenhuizen)
 routes.post('/studentenhuis', studentenhuiscontroller.createStudentenhuis)
 
-//routes.get('/persons/:id', personcontroller.getPersonById)
-//routes.put('/persons/:id', personcontroller.updatePersonById)
-//routes.delete('/persons/:id', personcontroller.deletePersonById)
+routes.get('/studentenhuis/:id', studentenhuiscontroller.getStudentenhuisById)
+routes.put('/studentenhuis/:id', studentenhuiscontroller.updateStudentenhuisById)
+routes.delete('/studentenhuis/:id', studentenhuiscontroller.deleteStudentenhuisById)
 
 module.exports = routes
