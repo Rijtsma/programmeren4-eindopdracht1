@@ -85,6 +85,10 @@ module.exports = {
      * @param {*} next ApiError when id and/or studentenhuis object are invalid.
      */
     updateStudentenhuisById(req, res, next) {
+        const id = pareInt(req.params.id)
+        const naam = req.body.naam
+        const adres = req.body.adres
+
         database.query('UPDATE studentenhuis SET Naam = ?, Adres = ? WHERE ID = ?', [naam, adres, id], function (error, rows, fields) {
             if (error) {
                 next(error)
@@ -100,28 +104,18 @@ module.exports = {
     },
     
     deleteStudentenhuisById(req, res, next) {
-        const id = req.params.id
-        try {
-            // We need a valid id 
-            assert(!isNaN(id) && id >= 0 && id < studentenhuis.length, 'parameter id is invalid: ' + id)
-        }
-        catch (ex) {
-            const error = new ApiError(ex.toString(), 404)
-            next(error)
-            return
-        }
 
-        // delete die studentenhuis
-        const removedStudentenhuis = studentenhuis.splice(id, 1)
-        if(removedStudentenhuis.length === 1) {
-            // gelukt; status = 200
-            res.status(200).json(removedStudentenhuis).end();
-        } else {
-            // mislukt; fout -> next(error)
-            let error = {
-                message: "Studentenhuis was not found"
+        database.query('DELETE FROM studentenhuis WHERE ID=' + req.params.id, function (error, rows, fields) {
+            if (error) {
+                next(error)
+            } else {
+                res.status(200).json({
+                    status: {
+                        query: 'ok'
+                    },
+                    result: rows
+                }).end()
             }
-            next(error)
-        }
+        })
     }
 }
