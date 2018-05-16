@@ -1,6 +1,6 @@
 const auth = require('../logon/tokenLogin');
 const assert = require('assert');
-const db = require('../config/connectDB');
+const database = require('../config/connectDB');
 
 module.exports = {
     validateToken(request, response, next) {
