@@ -44,7 +44,18 @@ module.exports = {
      * @param {*} next Unused here (no errors expected.)
      */
     getAllStudentenhuizen(req, res, next) {
-        res.status(200).json(studentenhuislist).end();
+        database.query('SELECT * FROM studentenhuis', function (error, rows, fields) {
+            if (error) {
+                next(error)
+            } else {
+                res.status(200).json({
+                    status: {
+                        query: 'ok'
+                    },
+                    result: rows
+                }).end()
+            }
+        })
     },
 
     /**
@@ -54,17 +65,21 @@ module.exports = {
      * @param {*} res The requested studentenhuis object.
      * @param {*} next ApiError when id is invalid.
      */
+
     getStudentenhuisById(req, res, next) {
-        const id = req.params.id
-        try {
-            assert(!isNaN(id) && id >= 0 && id < studentenhuislist.length, 'parameter id is invalid: ' + id)
-        }
-        catch (ex) {
-            const error = new ApiError(ex.toString(), 404)
-            next(error)
-            return
-        }
-        res.status(200).json(studentenhuislist[id]).end();
+
+        database.query('SELECT * FROM studentenhuis WHERE ID=' + req.params.id, function (error, rows, fields) {
+            if (error) {
+                next(error)
+            } else {
+                res.status(200).json({
+                    status: {
+                        query: 'ok'
+                    },
+                    result: rows
+                }).end()
+            }
+        })
     },
 
     //
@@ -79,26 +94,18 @@ module.exports = {
      * @param {*} next ApiError when id and/or studentenhuis object are invalid.
      */
     updateStudentenhuisById(req, res, next) {
-        const id = req.params.id
-        const studentenhuis = req.body
-        try {
-            // We need a valid id 
-            assert(!isNaN(id) && id >= 0 && id < Studentenhuis.length, 'parameter id is invalid: ' + id)
-            // And we need a valid studentenhuis
-            assert(typeof (studentenhuis) === 'object', 'name must be a valid object')
-            assert(studentenhuis.hasOwnProperty('name'), 'A studentenhuis must hava a name object')
-            assert(typeof (studentenhuis.name.naam) === 'string', 'naam must be a string')
-            assert(typeof (studentenhuis.name.adres) === 'string', 'adres must be a string')
-        }
-        catch (ex) {
-            const error = new ApiError(ex.toString(), 404)
-            next(error)
-            return
-        }
-
-        let studentenhuis = new Studentenhuis(req.body.name.naam, req.body.name.adres)
-        studentenhuislist[id] = studentenhuis
-        res.status(200).jsons(studentenhuis).end();
+        database.query('SELECT * FROM studentenhuis', function (error, rows, fields) {
+            if (error) {
+                next(error)
+            } else {
+                res.status(200).json({
+                    status: {
+                        query: 'ok'
+                    },
+                    result: rows
+                }).end()
+            }
+        })
     },
     
     deleteStudentenhuisById(req, res, next) {
