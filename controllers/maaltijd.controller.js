@@ -1,8 +1,8 @@
 const Maaltijd = require('../domain/Maaltijd')
 const ApiError = require('../domain/ApiError')
 const assert = require('assert')
-
-let maaltijdlist = []
+const database = require('../config/connectDB')
+const auth =  require('../logon/tokenLogin');
 
 module.exports = {
 

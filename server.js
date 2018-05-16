@@ -1,9 +1,11 @@
-var http = require('http');
-var express = require('express');
-var bodyParser = require('body-parser')
+const http = require('http')
+const express = require('express')
+const bodyParser = require('body-parser')
 const morgan = require('morgan')
-
-const loginController = require('./controllers/login.controller');
+const loginController = require('./controllers/login.controller')
+const loginRegister = require('./routes/public_routes');
+const studenthouse = require('./routes/studenthouse');
+const maaltijd = require('./routes/maaltijd');
 
 let app = express()
 
@@ -11,7 +13,7 @@ const port = process.env.PORT || 3000
 
 // bodyParser parses the body from a request
 app.use(bodyParser.urlencoded({ extended:true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 // Instal Morgan as logger
 app.use(morgan('dev'))
@@ -21,10 +23,12 @@ app.use('*', function(req, res, next){
 	next()
 })
 
-app.all('*', loginController.validateToken); //login om verder te gaan
+app.all('*', loginController.validateToken) //login om verder te gaan
 
 // Regular endpoints
-//app.use('/api', person_routes)
+app.use('/api', public_routes)
+app.use('/api', maaltijd_routes)
+app.use('/api', studentenhuis_routes)
 
 
 //geen endpoint matcht!
